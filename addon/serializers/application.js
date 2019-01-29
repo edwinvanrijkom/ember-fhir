@@ -4,10 +4,22 @@ import { merge } from '@ember/polyfills';
 import { set, get } from '@ember/object';
 import { capitalize, camelize } from '@ember/string';
 import { typeOf, isPresent, isNone, isEmpty } from '@ember/utils';
-import Ember from 'ember';
 import DS from 'ember-data';
-import coerceId from "ember-data/-private/system/coerce-id";
 import { pluralize } from 'ember-inflector';
+
+// Copied from ember-data/-private/system/coerce-id
+function coerceId(id) {
+  if (id === null || id === undefined || id === '') {
+    return null;
+  }
+  if (typeof id === 'string') {
+    return id;
+  }
+  if (typeof id === 'symbol') {
+    return id.toString();
+  }
+  return '' + id;
+}
 
 const reserved = [ 'data', 'container', 'trigger', 'type' ];
 
