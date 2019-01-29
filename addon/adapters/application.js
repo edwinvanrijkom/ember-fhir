@@ -1,13 +1,8 @@
-import Ember from 'ember';
 import DS from 'ember-data';
-
-const {
-  get,
-  isEqual,
-  isPresent,
-  String: { camelize, capitalize, singularize }
-} = Ember;
-
+import { get } from '@ember/object';
+import { isEqual, isPresent } from '@ember/utils';
+import { camelize, capitalize } from '@ember/string';
+import { singularize } from 'ember-inflector';
 export default DS.RESTAdapter.extend({
   defaultSerializer: '-fhir',
 
