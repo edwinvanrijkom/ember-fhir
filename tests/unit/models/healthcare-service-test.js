@@ -1,22 +1,13 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('healthcare-service', 'Unit | Model | HealthcareService', {
-  needs: [
-    'model:meta',
-    'model:narrative',
-    'model:resource',
-    'model:extension',
-    'model:identifier',
-    'model:reference',
-    'model:codeable-concept',
-    'model:attachment',
-    'model:contact-point',
-    'model:healthcare-service-available-time',
-    'model:healthcare-service-not-available'
-  ]
-});
+import { run } from '@ember/runloop';
 
-test('it exists', function(assert) {
-  const model = this.subject();
-  assert.ok(!!model);
+module('Unit | Model | HealthcareService', function(hooks) {
+  setupTest(hooks);
+
+  test('it exists', function(assert) {
+    const model = run(() => this.owner.lookup('service:store').createRecord('healthcare-service'));
+    assert.ok(!!model);
+  });
 });

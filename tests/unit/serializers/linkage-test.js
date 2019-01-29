@@ -1,20 +1,15 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('linkage', 'Unit | Serializer | Linkage', {
-  needs: [
-    'serializer:linkage',
-    'model:reference',
-    'model:linkage-item',
-    'model:meta',
-    'model:narrative',
-    'model:resource',
-    'model:extension'
-  ]
-});
+import { run } from '@ember/runloop';
 
-test('it serializes records', function(assert) {
-  const record = this.subject(),
-    serializeRecord = record.serialize();
+module('Unit | Serializer | Linkage', function(hooks) {
+  setupTest(hooks);
 
-  assert.ok(serializeRecord);
+  test('it serializes records', function(assert) {
+    const record = run(() => this.owner.lookup('service:store').createRecord('linkage')),
+      serializeRecord = record.serialize();
+
+    assert.ok(serializeRecord);
+  });
 });

@@ -1,20 +1,13 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('capability-statement-rest', 'Unit | Model | CapabilityStatement_Rest', {
-  needs: [
-    'model:meta',
-    'model:narrative',
-    'model:resource',
-    'model:extension',
-    'model:capability-statement-security',
-    'model:capability-statement-resource',
-    'model:capability-statement-interaction-1',
-    'model:capability-statement-search-param',
-    'model:capability-statement-operation'
-  ]
-});
+import { run } from '@ember/runloop';
 
-test('it exists', function(assert) {
-  const model = this.subject();
-  assert.ok(!!model);
+module('Unit | Model | CapabilityStatement_Rest', function(hooks) {
+  setupTest(hooks);
+
+  test('it exists', function(assert) {
+    const model = run(() => this.owner.lookup('service:store').createRecord('capability-statement-rest'));
+    assert.ok(!!model);
+  });
 });

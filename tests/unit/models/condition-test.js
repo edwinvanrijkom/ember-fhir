@@ -1,24 +1,13 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('condition', 'Unit | Model | Condition', {
-  needs: [
-    'model:meta',
-    'model:narrative',
-    'model:resource',
-    'model:extension',
-    'model:identifier',
-    'model:codeable-concept',
-    'model:reference',
-    'model:age',
-    'model:period',
-    'model:range',
-    'model:condition-stage',
-    'model:condition-evidence',
-    'model:annotation'
-  ]
-});
+import { run } from '@ember/runloop';
 
-test('it exists', function(assert) {
-  const model = this.subject();
-  assert.ok(!!model);
+module('Unit | Model | Condition', function(hooks) {
+  setupTest(hooks);
+
+  test('it exists', function(assert) {
+    const model = run(() => this.owner.lookup('service:store').createRecord('condition'));
+    assert.ok(!!model);
+  });
 });

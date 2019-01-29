@@ -1,18 +1,13 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('nutrition-order-enteral-formula', 'Unit | Model | NutritionOrder_EnteralFormula', {
-  needs: [
-    'model:meta',
-    'model:narrative',
-    'model:resource',
-    'model:extension',
-    'model:codeable-concept',
-    'model:quantity',
-    'model:nutrition-order-administration'
-  ]
-});
+import { run } from '@ember/runloop';
 
-test('it exists', function(assert) {
-  const model = this.subject();
-  assert.ok(!!model);
+module('Unit | Model | NutritionOrder_EnteralFormula', function(hooks) {
+  setupTest(hooks);
+
+  test('it exists', function(assert) {
+    const model = run(() => this.owner.lookup('service:store').createRecord('nutrition-order-enteral-formula'));
+    assert.ok(!!model);
+  });
 });

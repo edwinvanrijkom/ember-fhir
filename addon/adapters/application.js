@@ -3,6 +3,7 @@ import { get } from '@ember/object';
 import { isEqual, isPresent } from '@ember/utils';
 import { camelize, capitalize } from '@ember/string';
 import { singularize } from 'ember-inflector';
+
 export default DS.RESTAdapter.extend({
   defaultSerializer: '-fhir',
 

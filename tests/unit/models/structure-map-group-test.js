@@ -1,17 +1,13 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('structure-map-group', 'Unit | Model | StructureMap_Group', {
-  needs: [
-    'model:meta',
-    'model:narrative',
-    'model:resource',
-    'model:extension',
-    'model:structure-map-input',
-    'model:structure-map-rule'
-  ]
-});
+import { run } from '@ember/runloop';
 
-test('it exists', function(assert) {
-  const model = this.subject();
-  assert.ok(!!model);
+module('Unit | Model | StructureMap_Group', function(hooks) {
+  setupTest(hooks);
+
+  test('it exists', function(assert) {
+    const model = run(() => this.owner.lookup('service:store').createRecord('structure-map-group'));
+    assert.ok(!!model);
+  });
 });

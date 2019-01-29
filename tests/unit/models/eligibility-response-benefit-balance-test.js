@@ -1,17 +1,13 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('eligibility-response-benefit-balance', 'Unit | Model | EligibilityResponse_BenefitBalance', {
-  needs: [
-    'model:meta',
-    'model:narrative',
-    'model:resource',
-    'model:extension',
-    'model:codeable-concept',
-    'model:eligibility-response-financial'
-  ]
-});
+import { run } from '@ember/runloop';
 
-test('it exists', function(assert) {
-  const model = this.subject();
-  assert.ok(!!model);
+module('Unit | Model | EligibilityResponse_BenefitBalance', function(hooks) {
+  setupTest(hooks);
+
+  test('it exists', function(assert) {
+    const model = run(() => this.owner.lookup('service:store').createRecord('eligibility-response-benefit-balance'));
+    assert.ok(!!model);
+  });
 });

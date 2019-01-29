@@ -1,22 +1,13 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('supply-request', 'Unit | Model | SupplyRequest', {
-  needs: [
-    'model:meta',
-    'model:narrative',
-    'model:resource',
-    'model:extension',
-    'model:identifier',
-    'model:codeable-concept',
-    'model:supply-request-ordered-item',
-    'model:period',
-    'model:timing',
-    'model:supply-request-requester',
-    'model:reference'
-  ]
-});
+import { run } from '@ember/runloop';
 
-test('it exists', function(assert) {
-  const model = this.subject();
-  assert.ok(!!model);
+module('Unit | Model | SupplyRequest', function(hooks) {
+  setupTest(hooks);
+
+  test('it exists', function(assert) {
+    const model = run(() => this.owner.lookup('service:store').createRecord('supply-request'));
+    assert.ok(!!model);
+  });
 });

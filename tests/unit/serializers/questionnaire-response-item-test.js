@@ -1,21 +1,15 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('questionnaire-response-item', 'Unit | Serializer | QuestionnaireResponse_Item', {
-  needs: [
-    'serializer:questionnaire-response-item',
-    'model:reference',
-    'model:questionnaire-response-answer',
-    'model:questionnaire-response-item',
-    'model:meta',
-    'model:narrative',
-    'model:resource',
-    'model:extension'
-  ]
-});
+import { run } from '@ember/runloop';
 
-test('it serializes records', function(assert) {
-  const record = this.subject(),
-    serializeRecord = record.serialize();
+module('Unit | Serializer | QuestionnaireResponse_Item', function(hooks) {
+  setupTest(hooks);
 
-  assert.ok(serializeRecord);
+  test('it serializes records', function(assert) {
+    const record = run(() => this.owner.lookup('service:store').createRecord('questionnaire-response-item')),
+      serializeRecord = record.serialize();
+
+    assert.ok(serializeRecord);
+  });
 });

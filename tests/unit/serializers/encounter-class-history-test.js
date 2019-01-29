@@ -1,20 +1,15 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('encounter-class-history', 'Unit | Serializer | Encounter_ClassHistory', {
-  needs: [
-    'serializer:encounter-class-history',
-    'model:coding',
-    'model:period',
-    'model:meta',
-    'model:narrative',
-    'model:resource',
-    'model:extension'
-  ]
-});
+import { run } from '@ember/runloop';
 
-test('it serializes records', function(assert) {
-  const record = this.subject(),
-    serializeRecord = record.serialize();
+module('Unit | Serializer | Encounter_ClassHistory', function(hooks) {
+  setupTest(hooks);
 
-  assert.ok(serializeRecord);
+  test('it serializes records', function(assert) {
+    const record = run(() => this.owner.lookup('service:store').createRecord('encounter-class-history')),
+      serializeRecord = record.serialize();
+
+    assert.ok(serializeRecord);
+  });
 });

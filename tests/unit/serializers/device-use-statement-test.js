@@ -1,24 +1,15 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('device-use-statement', 'Unit | Serializer | DeviceUseStatement', {
-  needs: [
-    'serializer:device-use-statement',
-    'model:identifier',
-    'model:reference',
-    'model:period',
-    'model:timing',
-    'model:codeable-concept',
-    'model:annotation',
-    'model:meta',
-    'model:narrative',
-    'model:resource',
-    'model:extension'
-  ]
-});
+import { run } from '@ember/runloop';
 
-test('it serializes records', function(assert) {
-  const record = this.subject(),
-    serializeRecord = record.serialize();
+module('Unit | Serializer | DeviceUseStatement', function(hooks) {
+  setupTest(hooks);
 
-  assert.ok(serializeRecord);
+  test('it serializes records', function(assert) {
+    const record = run(() => this.owner.lookup('service:store').createRecord('device-use-statement')),
+      serializeRecord = record.serialize();
+
+    assert.ok(serializeRecord);
+  });
 });

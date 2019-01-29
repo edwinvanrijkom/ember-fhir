@@ -1,22 +1,13 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('implementation-guide', 'Unit | Model | ImplementationGuide', {
-  needs: [
-    'model:meta',
-    'model:narrative',
-    'model:resource',
-    'model:extension',
-    'model:contact-detail',
-    'model:usage-context',
-    'model:codeable-concept',
-    'model:implementation-guide-dependency',
-    'model:implementation-guide-package',
-    'model:implementation-guide-global',
-    'model:implementation-guide-page'
-  ]
-});
+import { run } from '@ember/runloop';
 
-test('it exists', function(assert) {
-  const model = this.subject();
-  assert.ok(!!model);
+module('Unit | Model | ImplementationGuide', function(hooks) {
+  setupTest(hooks);
+
+  test('it exists', function(assert) {
+    const model = run(() => this.owner.lookup('service:store').createRecord('implementation-guide'));
+    assert.ok(!!model);
+  });
 });

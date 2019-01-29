@@ -1,29 +1,13 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('claim', 'Unit | Model | Claim', {
-  needs: [
-    'model:meta',
-    'model:narrative',
-    'model:resource',
-    'model:extension',
-    'model:identifier',
-    'model:codeable-concept',
-    'model:reference',
-    'model:period',
-    'model:claim-related',
-    'model:claim-payee',
-    'model:claim-care-team',
-    'model:claim-information',
-    'model:claim-diagnosis',
-    'model:claim-procedure',
-    'model:claim-insurance',
-    'model:claim-accident',
-    'model:claim-item',
-    'model:money'
-  ]
-});
+import { run } from '@ember/runloop';
 
-test('it exists', function(assert) {
-  const model = this.subject();
-  assert.ok(!!model);
+module('Unit | Model | Claim', function(hooks) {
+  setupTest(hooks);
+
+  test('it exists', function(assert) {
+    const model = run(() => this.owner.lookup('service:store').createRecord('claim'));
+    assert.ok(!!model);
+  });
 });

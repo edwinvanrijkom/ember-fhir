@@ -1,25 +1,15 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('communication-request', 'Unit | Serializer | CommunicationRequest', {
-  needs: [
-    'serializer:communication-request',
-    'model:identifier',
-    'model:reference',
-    'model:codeable-concept',
-    'model:communication-request-payload',
-    'model:period',
-    'model:communication-request-requester',
-    'model:annotation',
-    'model:meta',
-    'model:narrative',
-    'model:resource',
-    'model:extension'
-  ]
-});
+import { run } from '@ember/runloop';
 
-test('it serializes records', function(assert) {
-  const record = this.subject(),
-    serializeRecord = record.serialize();
+module('Unit | Serializer | CommunicationRequest', function(hooks) {
+  setupTest(hooks);
 
-  assert.ok(serializeRecord);
+  test('it serializes records', function(assert) {
+    const record = run(() => this.owner.lookup('service:store').createRecord('communication-request')),
+      serializeRecord = record.serialize();
+
+    assert.ok(serializeRecord);
+  });
 });

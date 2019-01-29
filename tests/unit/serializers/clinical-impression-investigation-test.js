@@ -1,20 +1,15 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('clinical-impression-investigation', 'Unit | Serializer | ClinicalImpression_Investigation', {
-  needs: [
-    'serializer:clinical-impression-investigation',
-    'model:codeable-concept',
-    'model:reference',
-    'model:meta',
-    'model:narrative',
-    'model:resource',
-    'model:extension'
-  ]
-});
+import { run } from '@ember/runloop';
 
-test('it serializes records', function(assert) {
-  const record = this.subject(),
-    serializeRecord = record.serialize();
+module('Unit | Serializer | ClinicalImpression_Investigation', function(hooks) {
+  setupTest(hooks);
 
-  assert.ok(serializeRecord);
+  test('it serializes records', function(assert) {
+    const record = run(() => this.owner.lookup('service:store').createRecord('clinical-impression-investigation')),
+      serializeRecord = record.serialize();
+
+    assert.ok(serializeRecord);
+  });
 });

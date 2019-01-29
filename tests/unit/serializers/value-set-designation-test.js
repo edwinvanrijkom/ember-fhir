@@ -1,19 +1,15 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('value-set-designation', 'Unit | Serializer | ValueSet_Designation', {
-  needs: [
-    'serializer:value-set-designation',
-    'model:coding',
-    'model:meta',
-    'model:narrative',
-    'model:resource',
-    'model:extension'
-  ]
-});
+import { run } from '@ember/runloop';
 
-test('it serializes records', function(assert) {
-  const record = this.subject(),
-    serializeRecord = record.serialize();
+module('Unit | Serializer | ValueSet_Designation', function(hooks) {
+  setupTest(hooks);
 
-  assert.ok(serializeRecord);
+  test('it serializes records', function(assert) {
+    const record = run(() => this.owner.lookup('service:store').createRecord('value-set-designation')),
+      serializeRecord = record.serialize();
+
+    assert.ok(serializeRecord);
+  });
 });

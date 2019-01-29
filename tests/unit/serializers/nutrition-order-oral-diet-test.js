@@ -1,22 +1,15 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('nutrition-order-oral-diet', 'Unit | Serializer | NutritionOrder_OralDiet', {
-  needs: [
-    'serializer:nutrition-order-oral-diet',
-    'model:codeable-concept',
-    'model:timing',
-    'model:nutrition-order-nutrient',
-    'model:nutrition-order-texture',
-    'model:meta',
-    'model:narrative',
-    'model:resource',
-    'model:extension'
-  ]
-});
+import { run } from '@ember/runloop';
 
-test('it serializes records', function(assert) {
-  const record = this.subject(),
-    serializeRecord = record.serialize();
+module('Unit | Serializer | NutritionOrder_OralDiet', function(hooks) {
+  setupTest(hooks);
 
-  assert.ok(serializeRecord);
+  test('it serializes records', function(assert) {
+    const record = run(() => this.owner.lookup('service:store').createRecord('nutrition-order-oral-diet')),
+      serializeRecord = record.serialize();
+
+    assert.ok(serializeRecord);
+  });
 });

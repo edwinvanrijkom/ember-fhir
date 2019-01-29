@@ -1,26 +1,13 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('request-group-action', 'Unit | Model | RequestGroup_Action', {
-  needs: [
-    'model:meta',
-    'model:narrative',
-    'model:resource',
-    'model:extension',
-    'model:codeable-concept',
-    'model:related-artifact',
-    'model:request-group-condition',
-    'model:request-group-related-action',
-    'model:period',
-    'model:duration',
-    'model:range',
-    'model:timing',
-    'model:reference',
-    'model:coding',
-    'model:request-group-action'
-  ]
-});
+import { run } from '@ember/runloop';
 
-test('it exists', function(assert) {
-  const model = this.subject();
-  assert.ok(!!model);
+module('Unit | Model | RequestGroup_Action', function(hooks) {
+  setupTest(hooks);
+
+  test('it exists', function(assert) {
+    const model = run(() => this.owner.lookup('service:store').createRecord('request-group-action'));
+    assert.ok(!!model);
+  });
 });

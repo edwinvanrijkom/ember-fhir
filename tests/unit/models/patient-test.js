@@ -1,26 +1,13 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('patient', 'Unit | Model | Patient', {
-  needs: [
-    'model:meta',
-    'model:narrative',
-    'model:resource',
-    'model:extension',
-    'model:identifier',
-    'model:human-name',
-    'model:contact-point',
-    'model:address',
-    'model:codeable-concept',
-    'model:attachment',
-    'model:patient-contact',
-    'model:patient-animal',
-    'model:patient-communication',
-    'model:reference',
-    'model:patient-link'
-  ]
-});
+import { run } from '@ember/runloop';
 
-test('it exists', function(assert) {
-  const model = this.subject();
-  assert.ok(!!model);
+module('Unit | Model | Patient', function(hooks) {
+  setupTest(hooks);
+
+  test('it exists', function(assert) {
+    const model = run(() => this.owner.lookup('service:store').createRecord('patient'));
+    assert.ok(!!model);
+  });
 });

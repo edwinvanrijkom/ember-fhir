@@ -1,21 +1,15 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('capability-statement-messaging', 'Unit | Serializer | CapabilityStatement_Messaging', {
-  needs: [
-    'serializer:capability-statement-messaging',
-    'model:capability-statement-endpoint',
-    'model:capability-statement-supported-message',
-    'model:capability-statement-event',
-    'model:meta',
-    'model:narrative',
-    'model:resource',
-    'model:extension'
-  ]
-});
+import { run } from '@ember/runloop';
 
-test('it serializes records', function(assert) {
-  const record = this.subject(),
-    serializeRecord = record.serialize();
+module('Unit | Serializer | CapabilityStatement_Messaging', function(hooks) {
+  setupTest(hooks);
 
-  assert.ok(serializeRecord);
+  test('it serializes records', function(assert) {
+    const record = run(() => this.owner.lookup('service:store').createRecord('capability-statement-messaging')),
+      serializeRecord = record.serialize();
+
+    assert.ok(serializeRecord);
+  });
 });

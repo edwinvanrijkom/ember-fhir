@@ -1,20 +1,15 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('account-guarantor', 'Unit | Serializer | Account_Guarantor', {
-  needs: [
-    'serializer:account-guarantor',
-    'model:reference',
-    'model:period',
-    'model:meta',
-    'model:narrative',
-    'model:resource',
-    'model:extension'
-  ]
-});
+import { run } from '@ember/runloop';
 
-test('it serializes records', function(assert) {
-  const record = this.subject(),
-    serializeRecord = record.serialize();
+module('Unit | Serializer | Account_Guarantor', function(hooks) {
+  setupTest(hooks);
 
-  assert.ok(serializeRecord);
+  test('it serializes records', function(assert) {
+    const record = run(() => this.owner.lookup('service:store').createRecord('account-guarantor')),
+      serializeRecord = record.serialize();
+
+    assert.ok(serializeRecord);
+  });
 });

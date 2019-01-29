@@ -1,25 +1,13 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('plan-definition', 'Unit | Model | PlanDefinition', {
-  needs: [
-    'model:meta',
-    'model:narrative',
-    'model:resource',
-    'model:extension',
-    'model:identifier',
-    'model:codeable-concept',
-    'model:period',
-    'model:usage-context',
-    'model:contributor',
-    'model:contact-detail',
-    'model:related-artifact',
-    'model:reference',
-    'model:plan-definition-goal',
-    'model:plan-definition-action'
-  ]
-});
+import { run } from '@ember/runloop';
 
-test('it exists', function(assert) {
-  const model = this.subject();
-  assert.ok(!!model);
+module('Unit | Model | PlanDefinition', function(hooks) {
+  setupTest(hooks);
+
+  test('it exists', function(assert) {
+    const model = run(() => this.owner.lookup('service:store').createRecord('plan-definition'));
+    assert.ok(!!model);
+  });
 });

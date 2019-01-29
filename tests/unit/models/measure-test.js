@@ -1,26 +1,13 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('measure', 'Unit | Model | Measure', {
-  needs: [
-    'model:meta',
-    'model:narrative',
-    'model:resource',
-    'model:extension',
-    'model:identifier',
-    'model:period',
-    'model:usage-context',
-    'model:codeable-concept',
-    'model:contributor',
-    'model:contact-detail',
-    'model:related-artifact',
-    'model:reference',
-    'model:measure-group',
-    'model:measure-supplemental-data',
-    'model:measure-supplemental-datum'
-  ]
-});
+import { run } from '@ember/runloop';
 
-test('it exists', function(assert) {
-  const model = this.subject();
-  assert.ok(!!model);
+module('Unit | Model | Measure', function(hooks) {
+  setupTest(hooks);
+
+  test('it exists', function(assert) {
+    const model = run(() => this.owner.lookup('service:store').createRecord('measure'));
+    assert.ok(!!model);
+  });
 });

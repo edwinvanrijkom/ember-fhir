@@ -1,20 +1,15 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('test-report-action-1', 'Unit | Serializer | TestReport_Action1', {
-  needs: [
-    'serializer:test-report-action-1',
-    'model:test-report-operation',
-    'model:test-report-assert',
-    'model:meta',
-    'model:narrative',
-    'model:resource',
-    'model:extension'
-  ]
-});
+import { run } from '@ember/runloop';
 
-test('it serializes records', function(assert) {
-  const record = this.subject(),
-    serializeRecord = record.serialize();
+module('Unit | Serializer | TestReport_Action1', function(hooks) {
+  setupTest(hooks);
 
-  assert.ok(serializeRecord);
+  test('it serializes records', function(assert) {
+    const record = run(() => this.owner.lookup('service:store').createRecord('test-report-action-1')),
+      serializeRecord = record.serialize();
+
+    assert.ok(serializeRecord);
+  });
 });

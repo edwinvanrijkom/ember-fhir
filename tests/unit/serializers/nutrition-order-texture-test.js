@@ -1,19 +1,15 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('nutrition-order-texture', 'Unit | Serializer | NutritionOrder_Texture', {
-  needs: [
-    'serializer:nutrition-order-texture',
-    'model:codeable-concept',
-    'model:meta',
-    'model:narrative',
-    'model:resource',
-    'model:extension'
-  ]
-});
+import { run } from '@ember/runloop';
 
-test('it serializes records', function(assert) {
-  const record = this.subject(),
-    serializeRecord = record.serialize();
+module('Unit | Serializer | NutritionOrder_Texture', function(hooks) {
+  setupTest(hooks);
 
-  assert.ok(serializeRecord);
+  test('it serializes records', function(assert) {
+    const record = run(() => this.owner.lookup('service:store').createRecord('nutrition-order-texture')),
+      serializeRecord = record.serialize();
+
+    assert.ok(serializeRecord);
+  });
 });

@@ -1,20 +1,15 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('immunization-vaccination-protocol', 'Unit | Serializer | Immunization_VaccinationProtocol', {
-  needs: [
-    'serializer:immunization-vaccination-protocol',
-    'model:reference',
-    'model:codeable-concept',
-    'model:meta',
-    'model:narrative',
-    'model:resource',
-    'model:extension'
-  ]
-});
+import { run } from '@ember/runloop';
 
-test('it serializes records', function(assert) {
-  const record = this.subject(),
-    serializeRecord = record.serialize();
+module('Unit | Serializer | Immunization_VaccinationProtocol', function(hooks) {
+  setupTest(hooks);
 
-  assert.ok(serializeRecord);
+  test('it serializes records', function(assert) {
+    const record = run(() => this.owner.lookup('service:store').createRecord('immunization-vaccination-protocol')),
+      serializeRecord = record.serialize();
+
+    assert.ok(serializeRecord);
+  });
 });

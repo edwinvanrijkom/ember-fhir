@@ -1,21 +1,13 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('explanation-of-benefit-detail', 'Unit | Model | ExplanationOfBenefit_Detail', {
-  needs: [
-    'model:meta',
-    'model:narrative',
-    'model:resource',
-    'model:extension',
-    'model:codeable-concept',
-    'model:quantity',
-    'model:money',
-    'model:reference',
-    'model:explanation-of-benefit-adjudication',
-    'model:explanation-of-benefit-sub-detail'
-  ]
-});
+import { run } from '@ember/runloop';
 
-test('it exists', function(assert) {
-  const model = this.subject();
-  assert.ok(!!model);
+module('Unit | Model | ExplanationOfBenefit_Detail', function(hooks) {
+  setupTest(hooks);
+
+  test('it exists', function(assert) {
+    const model = run(() => this.owner.lookup('service:store').createRecord('explanation-of-benefit-detail'));
+    assert.ok(!!model);
+  });
 });

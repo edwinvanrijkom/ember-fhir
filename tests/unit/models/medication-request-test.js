@@ -1,23 +1,13 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('medication-request', 'Unit | Model | MedicationRequest', {
-  needs: [
-    'model:meta',
-    'model:narrative',
-    'model:resource',
-    'model:extension',
-    'model:identifier',
-    'model:reference',
-    'model:codeable-concept',
-    'model:medication-request-requester',
-    'model:annotation',
-    'model:dosage',
-    'model:medication-request-dispense-request',
-    'model:medication-request-substitution'
-  ]
-});
+import { run } from '@ember/runloop';
 
-test('it exists', function(assert) {
-  const model = this.subject();
-  assert.ok(!!model);
+module('Unit | Model | MedicationRequest', function(hooks) {
+  setupTest(hooks);
+
+  test('it exists', function(assert) {
+    const model = run(() => this.owner.lookup('service:store').createRecord('medication-request'));
+    assert.ok(!!model);
+  });
 });

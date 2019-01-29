@@ -1,21 +1,15 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('explanation-of-benefit-accident', 'Unit | Serializer | ExplanationOfBenefit_Accident', {
-  needs: [
-    'serializer:explanation-of-benefit-accident',
-    'model:codeable-concept',
-    'model:address',
-    'model:reference',
-    'model:meta',
-    'model:narrative',
-    'model:resource',
-    'model:extension'
-  ]
-});
+import { run } from '@ember/runloop';
 
-test('it serializes records', function(assert) {
-  const record = this.subject(),
-    serializeRecord = record.serialize();
+module('Unit | Serializer | ExplanationOfBenefit_Accident', function(hooks) {
+  setupTest(hooks);
 
-  assert.ok(serializeRecord);
+  test('it serializes records', function(assert) {
+    const record = run(() => this.owner.lookup('service:store').createRecord('explanation-of-benefit-accident')),
+      serializeRecord = record.serialize();
+
+    assert.ok(serializeRecord);
+  });
 });

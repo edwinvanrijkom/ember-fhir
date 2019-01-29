@@ -1,23 +1,15 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('audit-event', 'Unit | Serializer | AuditEvent', {
-  needs: [
-    'serializer:audit-event',
-    'model:coding',
-    'model:codeable-concept',
-    'model:audit-event-agent',
-    'model:audit-event-source',
-    'model:audit-event-entity',
-    'model:meta',
-    'model:narrative',
-    'model:resource',
-    'model:extension'
-  ]
-});
+import { run } from '@ember/runloop';
 
-test('it serializes records', function(assert) {
-  const record = this.subject(),
-    serializeRecord = record.serialize();
+module('Unit | Serializer | AuditEvent', function(hooks) {
+  setupTest(hooks);
 
-  assert.ok(serializeRecord);
+  test('it serializes records', function(assert) {
+    const record = run(() => this.owner.lookup('service:store').createRecord('audit-event')),
+      serializeRecord = record.serialize();
+
+    assert.ok(serializeRecord);
+  });
 });

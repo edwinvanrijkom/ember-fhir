@@ -1,21 +1,15 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('nutrition-order-enteral-formula', 'Unit | Serializer | NutritionOrder_EnteralFormula', {
-  needs: [
-    'serializer:nutrition-order-enteral-formula',
-    'model:codeable-concept',
-    'model:quantity',
-    'model:nutrition-order-administration',
-    'model:meta',
-    'model:narrative',
-    'model:resource',
-    'model:extension'
-  ]
-});
+import { run } from '@ember/runloop';
 
-test('it serializes records', function(assert) {
-  const record = this.subject(),
-    serializeRecord = record.serialize();
+module('Unit | Serializer | NutritionOrder_EnteralFormula', function(hooks) {
+  setupTest(hooks);
 
-  assert.ok(serializeRecord);
+  test('it serializes records', function(assert) {
+    const record = run(() => this.owner.lookup('service:store').createRecord('nutrition-order-enteral-formula')),
+      serializeRecord = record.serialize();
+
+    assert.ok(serializeRecord);
+  });
 });

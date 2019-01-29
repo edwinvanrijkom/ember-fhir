@@ -1,21 +1,15 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('provenance-entity', 'Unit | Serializer | Provenance_Entity', {
-  needs: [
-    'serializer:provenance-entity',
-    'model:reference',
-    'model:identifier',
-    'model:provenance-agent',
-    'model:meta',
-    'model:narrative',
-    'model:resource',
-    'model:extension'
-  ]
-});
+import { run } from '@ember/runloop';
 
-test('it serializes records', function(assert) {
-  const record = this.subject(),
-    serializeRecord = record.serialize();
+module('Unit | Serializer | Provenance_Entity', function(hooks) {
+  setupTest(hooks);
 
-  assert.ok(serializeRecord);
+  test('it serializes records', function(assert) {
+    const record = run(() => this.owner.lookup('service:store').createRecord('provenance-entity')),
+      serializeRecord = record.serialize();
+
+    assert.ok(serializeRecord);
+  });
 });

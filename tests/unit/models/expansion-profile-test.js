@@ -1,22 +1,13 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('expansion-profile', 'Unit | Model | ExpansionProfile', {
-  needs: [
-    'model:meta',
-    'model:narrative',
-    'model:resource',
-    'model:extension',
-    'model:identifier',
-    'model:contact-detail',
-    'model:usage-context',
-    'model:codeable-concept',
-    'model:expansion-profile-fixed-version',
-    'model:expansion-profile-excluded-system',
-    'model:expansion-profile-designation'
-  ]
-});
+import { run } from '@ember/runloop';
 
-test('it exists', function(assert) {
-  const model = this.subject();
-  assert.ok(!!model);
+module('Unit | Model | ExpansionProfile', function(hooks) {
+  setupTest(hooks);
+
+  test('it exists', function(assert) {
+    const model = run(() => this.owner.lookup('service:store').createRecord('expansion-profile'));
+    assert.ok(!!model);
+  });
 });

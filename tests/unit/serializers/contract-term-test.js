@@ -1,26 +1,15 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('contract-term', 'Unit | Serializer | Contract_Term', {
-  needs: [
-    'serializer:contract-term',
-    'model:identifier',
-    'model:period',
-    'model:codeable-concept',
-    'model:reference',
-    'model:coding',
-    'model:contract-agent-1',
-    'model:contract-valued-item-1',
-    'model:contract-term',
-    'model:meta',
-    'model:narrative',
-    'model:resource',
-    'model:extension'
-  ]
-});
+import { run } from '@ember/runloop';
 
-test('it serializes records', function(assert) {
-  const record = this.subject(),
-    serializeRecord = record.serialize();
+module('Unit | Serializer | Contract_Term', function(hooks) {
+  setupTest(hooks);
 
-  assert.ok(serializeRecord);
+  test('it serializes records', function(assert) {
+    const record = run(() => this.owner.lookup('service:store').createRecord('contract-term')),
+      serializeRecord = record.serialize();
+
+    assert.ok(serializeRecord);
+  });
 });

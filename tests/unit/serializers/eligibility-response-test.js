@@ -1,23 +1,15 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('eligibility-response', 'Unit | Serializer | EligibilityResponse', {
-  needs: [
-    'serializer:eligibility-response',
-    'model:identifier',
-    'model:reference',
-    'model:codeable-concept',
-    'model:eligibility-response-insurance',
-    'model:eligibility-response-error',
-    'model:meta',
-    'model:narrative',
-    'model:resource',
-    'model:extension'
-  ]
-});
+import { run } from '@ember/runloop';
 
-test('it serializes records', function(assert) {
-  const record = this.subject(),
-    serializeRecord = record.serialize();
+module('Unit | Serializer | EligibilityResponse', function(hooks) {
+  setupTest(hooks);
 
-  assert.ok(serializeRecord);
+  test('it serializes records', function(assert) {
+    const record = run(() => this.owner.lookup('service:store').createRecord('eligibility-response')),
+      serializeRecord = record.serialize();
+
+    assert.ok(serializeRecord);
+  });
 });
