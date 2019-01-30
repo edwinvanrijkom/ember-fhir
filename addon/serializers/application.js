@@ -4,11 +4,23 @@ import { merge } from '@ember/polyfills';
 import { set, get } from '@ember/object';
 import { capitalize, camelize } from '@ember/string';
 import { typeOf, isPresent, isNone, isEmpty } from '@ember/utils';
-import Ember from 'ember';
 import DS from 'ember-data';
-import coerceId from "ember-data/-private/system/coerce-id";
+import { pluralize } from 'ember-inflector';
 
 const reserved = [ 'data', 'container', 'trigger', 'type' ];
+
+function coerceId(id) {
+  if (id === null || id === undefined || id === '') {
+    return null;
+  }
+  if (typeof id === 'string') {
+    return id;
+  }
+  if (typeof id === 'symbol') {
+    return id.toString();
+  }
+  return '' + id;
+}
 
 export default DS.RESTSerializer.extend(DS.EmbeddedRecordsMixin, {
   isNewSerializerAPI: true,
@@ -42,7 +54,7 @@ export default DS.RESTSerializer.extend(DS.EmbeddedRecordsMixin, {
       // This is a query where nothing was returned.
       // Create an empty array in the hash so that subsequent parsing doesn't complain that there are 0 expected objects
       if (payload.total === 0) {
-        hash[Ember.String.pluralize(primaryModelClass.modelName)] = [];
+        hash[pluralize(primaryModelClass.modelName)] = [];
         return this._super(store, primaryModelClass, hash, id, requestType);
       } else {
         resourceArray = [ payload ];
