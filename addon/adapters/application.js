@@ -1,11 +1,13 @@
+import { get } from '@ember/object';
+import { isPresent, isEqual } from '@ember/utils';
+import { capitalize, camelize } from '@ember/string';
 import Ember from 'ember';
 import DS from 'ember-data';
 
 const {
-  get,
-  isEqual,
-  isPresent,
-  String: { camelize, capitalize, singularize }
+  String: {
+    singularize
+  }
 } = Ember;
 
 export default DS.RESTAdapter.extend({

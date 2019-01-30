@@ -1,22 +1,13 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('practitioner-role', 'Unit | Model | PractitionerRole', {
-  needs: [
-    'model:meta',
-    'model:narrative',
-    'model:resource',
-    'model:extension',
-    'model:identifier',
-    'model:period',
-    'model:reference',
-    'model:codeable-concept',
-    'model:contact-point',
-    'model:practitioner-role-available-time',
-    'model:practitioner-role-not-available'
-  ]
-});
+import { run } from '@ember/runloop';
 
-test('it exists', function(assert) {
-  const model = this.subject();
-  assert.ok(!!model);
+module('Unit | Model | PractitionerRole', function(hooks) {
+  setupTest(hooks);
+
+  test('it exists', function(assert) {
+    const model = run(() => this.owner.lookup('service:store').createRecord('practitioner-role'));
+    assert.ok(!!model);
+  });
 });

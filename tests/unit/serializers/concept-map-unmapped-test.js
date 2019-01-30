@@ -1,18 +1,15 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('concept-map-unmapped', 'Unit | Serializer | ConceptMap_Unmapped', {
-  needs: [
-    'serializer:concept-map-unmapped',
-    'model:meta',
-    'model:narrative',
-    'model:resource',
-    'model:extension'
-  ]
-});
+import { run } from '@ember/runloop';
 
-test('it serializes records', function(assert) {
-  const record = this.subject(),
-    serializeRecord = record.serialize();
+module('Unit | Serializer | ConceptMap_Unmapped', function(hooks) {
+  setupTest(hooks);
 
-  assert.ok(serializeRecord);
+  test('it serializes records', function(assert) {
+    const record = run(() => this.owner.lookup('service:store').createRecord('concept-map-unmapped')),
+      serializeRecord = record.serialize();
+
+    assert.ok(serializeRecord);
+  });
 });

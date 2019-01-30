@@ -1,22 +1,15 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('questionnaire-enable-when', 'Unit | Serializer | Questionnaire_EnableWhen', {
-  needs: [
-    'serializer:questionnaire-enable-when',
-    'model:attachment',
-    'model:coding',
-    'model:quantity',
-    'model:reference',
-    'model:meta',
-    'model:narrative',
-    'model:resource',
-    'model:extension'
-  ]
-});
+import { run } from '@ember/runloop';
 
-test('it serializes records', function(assert) {
-  const record = this.subject(),
-    serializeRecord = record.serialize();
+module('Unit | Serializer | Questionnaire_EnableWhen', function(hooks) {
+  setupTest(hooks);
 
-  assert.ok(serializeRecord);
+  test('it serializes records', function(assert) {
+    const record = run(() => this.owner.lookup('service:store').createRecord('questionnaire-enable-when')),
+      serializeRecord = record.serialize();
+
+    assert.ok(serializeRecord);
+  });
 });

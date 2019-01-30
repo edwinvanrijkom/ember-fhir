@@ -1,27 +1,13 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('encounter', 'Unit | Model | Encounter', {
-  needs: [
-    'model:meta',
-    'model:narrative',
-    'model:resource',
-    'model:extension',
-    'model:identifier',
-    'model:encounter-status-history',
-    'model:coding',
-    'model:encounter-class-history',
-    'model:codeable-concept',
-    'model:reference',
-    'model:encounter-participant',
-    'model:period',
-    'model:duration',
-    'model:encounter-diagnosis',
-    'model:encounter-hospitalization',
-    'model:encounter-location'
-  ]
-});
+import { run } from '@ember/runloop';
 
-test('it exists', function(assert) {
-  const model = this.subject();
-  assert.ok(!!model);
+module('Unit | Model | Encounter', function(hooks) {
+  setupTest(hooks);
+
+  test('it exists', function(assert) {
+    const model = run(() => this.owner.lookup('service:store').createRecord('encounter'));
+    assert.ok(!!model);
+  });
 });

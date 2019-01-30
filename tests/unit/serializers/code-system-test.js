@@ -1,25 +1,15 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('code-system', 'Unit | Serializer | CodeSystem', {
-  needs: [
-    'serializer:code-system',
-    'model:identifier',
-    'model:contact-detail',
-    'model:usage-context',
-    'model:codeable-concept',
-    'model:code-system-filter',
-    'model:code-system-property',
-    'model:code-system-concept',
-    'model:meta',
-    'model:narrative',
-    'model:resource',
-    'model:extension'
-  ]
-});
+import { run } from '@ember/runloop';
 
-test('it serializes records', function(assert) {
-  const record = this.subject(),
-    serializeRecord = record.serialize();
+module('Unit | Serializer | CodeSystem', function(hooks) {
+  setupTest(hooks);
 
-  assert.ok(serializeRecord);
+  test('it serializes records', function(assert) {
+    const record = run(() => this.owner.lookup('service:store').createRecord('code-system')),
+      serializeRecord = record.serialize();
+
+    assert.ok(serializeRecord);
+  });
 });

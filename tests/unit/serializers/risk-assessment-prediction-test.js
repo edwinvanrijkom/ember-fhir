@@ -1,21 +1,15 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('risk-assessment-prediction', 'Unit | Serializer | RiskAssessment_Prediction', {
-  needs: [
-    'serializer:risk-assessment-prediction',
-    'model:codeable-concept',
-    'model:range',
-    'model:period',
-    'model:meta',
-    'model:narrative',
-    'model:resource',
-    'model:extension'
-  ]
-});
+import { run } from '@ember/runloop';
 
-test('it serializes records', function(assert) {
-  const record = this.subject(),
-    serializeRecord = record.serialize();
+module('Unit | Serializer | RiskAssessment_Prediction', function(hooks) {
+  setupTest(hooks);
 
-  assert.ok(serializeRecord);
+  test('it serializes records', function(assert) {
+    const record = run(() => this.owner.lookup('service:store').createRecord('risk-assessment-prediction')),
+      serializeRecord = record.serialize();
+
+    assert.ok(serializeRecord);
+  });
 });

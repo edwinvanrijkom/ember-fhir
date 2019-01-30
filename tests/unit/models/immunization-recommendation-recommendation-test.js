@@ -1,19 +1,13 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('immunization-recommendation-recommendation', 'Unit | Model | ImmunizationRecommendation_Recommendation', {
-  needs: [
-    'model:meta',
-    'model:narrative',
-    'model:resource',
-    'model:extension',
-    'model:codeable-concept',
-    'model:immunization-recommendation-date-criterion',
-    'model:immunization-recommendation-protocol',
-    'model:reference'
-  ]
-});
+import { run } from '@ember/runloop';
 
-test('it exists', function(assert) {
-  const model = this.subject();
-  assert.ok(!!model);
+module('Unit | Model | ImmunizationRecommendation_Recommendation', function(hooks) {
+  setupTest(hooks);
+
+  test('it exists', function(assert) {
+    const model = run(() => this.owner.lookup('service:store').createRecord('immunization-recommendation-recommendation'));
+    assert.ok(!!model);
+  });
 });

@@ -1,21 +1,15 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('plan-definition-goal', 'Unit | Serializer | PlanDefinition_Goal', {
-  needs: [
-    'serializer:plan-definition-goal',
-    'model:codeable-concept',
-    'model:related-artifact',
-    'model:plan-definition-target',
-    'model:meta',
-    'model:narrative',
-    'model:resource',
-    'model:extension'
-  ]
-});
+import { run } from '@ember/runloop';
 
-test('it serializes records', function(assert) {
-  const record = this.subject(),
-    serializeRecord = record.serialize();
+module('Unit | Serializer | PlanDefinition_Goal', function(hooks) {
+  setupTest(hooks);
 
-  assert.ok(serializeRecord);
+  test('it serializes records', function(assert) {
+    const record = run(() => this.owner.lookup('service:store').createRecord('plan-definition-goal')),
+      serializeRecord = record.serialize();
+
+    assert.ok(serializeRecord);
+  });
 });

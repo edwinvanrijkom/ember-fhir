@@ -1,22 +1,15 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('explanation-of-benefit-add-item', 'Unit | Serializer | ExplanationOfBenefit_AddItem', {
-  needs: [
-    'serializer:explanation-of-benefit-add-item',
-    'model:codeable-concept',
-    'model:money',
-    'model:explanation-of-benefit-adjudication',
-    'model:explanation-of-benefit-detail-1',
-    'model:meta',
-    'model:narrative',
-    'model:resource',
-    'model:extension'
-  ]
-});
+import { run } from '@ember/runloop';
 
-test('it serializes records', function(assert) {
-  const record = this.subject(),
-    serializeRecord = record.serialize();
+module('Unit | Serializer | ExplanationOfBenefit_AddItem', function(hooks) {
+  setupTest(hooks);
 
-  assert.ok(serializeRecord);
+  test('it serializes records', function(assert) {
+    const record = run(() => this.owner.lookup('service:store').createRecord('explanation-of-benefit-add-item')),
+      serializeRecord = record.serialize();
+
+    assert.ok(serializeRecord);
+  });
 });

@@ -1,19 +1,15 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('expansion-profile-include', 'Unit | Serializer | ExpansionProfile_Include', {
-  needs: [
-    'serializer:expansion-profile-include',
-    'model:expansion-profile-designation-1',
-    'model:meta',
-    'model:narrative',
-    'model:resource',
-    'model:extension'
-  ]
-});
+import { run } from '@ember/runloop';
 
-test('it serializes records', function(assert) {
-  const record = this.subject(),
-    serializeRecord = record.serialize();
+module('Unit | Serializer | ExpansionProfile_Include', function(hooks) {
+  setupTest(hooks);
 
-  assert.ok(serializeRecord);
+  test('it serializes records', function(assert) {
+    const record = run(() => this.owner.lookup('service:store').createRecord('expansion-profile-include')),
+      serializeRecord = record.serialize();
+
+    assert.ok(serializeRecord);
+  });
 });

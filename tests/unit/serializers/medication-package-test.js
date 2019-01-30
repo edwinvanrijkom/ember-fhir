@@ -1,21 +1,15 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('medication-package', 'Unit | Serializer | Medication_Package', {
-  needs: [
-    'serializer:medication-package',
-    'model:codeable-concept',
-    'model:medication-content',
-    'model:medication-batch',
-    'model:meta',
-    'model:narrative',
-    'model:resource',
-    'model:extension'
-  ]
-});
+import { run } from '@ember/runloop';
 
-test('it serializes records', function(assert) {
-  const record = this.subject(),
-    serializeRecord = record.serialize();
+module('Unit | Serializer | Medication_Package', function(hooks) {
+  setupTest(hooks);
 
-  assert.ok(serializeRecord);
+  test('it serializes records', function(assert) {
+    const record = run(() => this.owner.lookup('service:store').createRecord('medication-package')),
+      serializeRecord = record.serialize();
+
+    assert.ok(serializeRecord);
+  });
 });

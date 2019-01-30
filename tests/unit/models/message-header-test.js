@@ -1,21 +1,13 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('message-header', 'Unit | Model | MessageHeader', {
-  needs: [
-    'model:meta',
-    'model:narrative',
-    'model:resource',
-    'model:extension',
-    'model:coding',
-    'model:message-header-destination',
-    'model:reference',
-    'model:message-header-source',
-    'model:codeable-concept',
-    'model:message-header-response'
-  ]
-});
+import { run } from '@ember/runloop';
 
-test('it exists', function(assert) {
-  const model = this.subject();
-  assert.ok(!!model);
+module('Unit | Model | MessageHeader', function(hooks) {
+  setupTest(hooks);
+
+  test('it exists', function(assert) {
+    const model = run(() => this.owner.lookup('service:store').createRecord('message-header'));
+    assert.ok(!!model);
+  });
 });

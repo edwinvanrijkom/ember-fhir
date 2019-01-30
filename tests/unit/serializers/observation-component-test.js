@@ -1,26 +1,15 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('observation-component', 'Unit | Serializer | Observation_Component', {
-  needs: [
-    'serializer:observation-component',
-    'model:codeable-concept',
-    'model:quantity',
-    'model:range',
-    'model:ratio',
-    'model:sampled-data',
-    'model:attachment',
-    'model:period',
-    'model:observation-reference-range',
-    'model:meta',
-    'model:narrative',
-    'model:resource',
-    'model:extension'
-  ]
-});
+import { run } from '@ember/runloop';
 
-test('it serializes records', function(assert) {
-  const record = this.subject(),
-    serializeRecord = record.serialize();
+module('Unit | Serializer | Observation_Component', function(hooks) {
+  setupTest(hooks);
 
-  assert.ok(serializeRecord);
+  test('it serializes records', function(assert) {
+    const record = run(() => this.owner.lookup('service:store').createRecord('observation-component')),
+      serializeRecord = record.serialize();
+
+    assert.ok(serializeRecord);
+  });
 });

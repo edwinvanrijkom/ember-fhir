@@ -1,23 +1,13 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('allergy-intolerance', 'Unit | Model | AllergyIntolerance', {
-  needs: [
-    'model:meta',
-    'model:narrative',
-    'model:resource',
-    'model:extension',
-    'model:identifier',
-    'model:codeable-concept',
-    'model:reference',
-    'model:age',
-    'model:period',
-    'model:range',
-    'model:annotation',
-    'model:allergy-intolerance-reaction'
-  ]
-});
+import { run } from '@ember/runloop';
 
-test('it exists', function(assert) {
-  const model = this.subject();
-  assert.ok(!!model);
+module('Unit | Model | AllergyIntolerance', function(hooks) {
+  setupTest(hooks);
+
+  test('it exists', function(assert) {
+    const model = run(() => this.owner.lookup('service:store').createRecord('allergy-intolerance'));
+    assert.ok(!!model);
+  });
 });

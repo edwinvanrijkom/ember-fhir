@@ -1,19 +1,12 @@
+import { A } from '@ember/array';
+import { guidFor } from '@ember/object/internals';
+import { merge } from '@ember/polyfills';
+import { set, get } from '@ember/object';
+import { capitalize, camelize } from '@ember/string';
+import { typeOf, isPresent, isNone, isEmpty } from '@ember/utils';
 import Ember from 'ember';
 import DS from 'ember-data';
 import coerceId from "ember-data/-private/system/coerce-id";
-
-const {
-  A,
-  get,
-  guidFor,
-  isEmpty,
-  isNone,
-  isPresent,
-  merge,
-  set,
-  String: { camelize, capitalize },
-  typeOf
-} = Ember;
 
 const reserved = [ 'data', 'container', 'trigger', 'type' ];
 

@@ -1,20 +1,15 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('structure-map-group', 'Unit | Serializer | StructureMap_Group', {
-  needs: [
-    'serializer:structure-map-group',
-    'model:structure-map-input',
-    'model:structure-map-rule',
-    'model:meta',
-    'model:narrative',
-    'model:resource',
-    'model:extension'
-  ]
-});
+import { run } from '@ember/runloop';
 
-test('it serializes records', function(assert) {
-  const record = this.subject(),
-    serializeRecord = record.serialize();
+module('Unit | Serializer | StructureMap_Group', function(hooks) {
+  setupTest(hooks);
 
-  assert.ok(serializeRecord);
+  test('it serializes records', function(assert) {
+    const record = run(() => this.owner.lookup('service:store').createRecord('structure-map-group')),
+      serializeRecord = record.serialize();
+
+    assert.ok(serializeRecord);
+  });
 });

@@ -1,32 +1,15 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('claim', 'Unit | Serializer | Claim', {
-  needs: [
-    'serializer:claim',
-    'model:identifier',
-    'model:codeable-concept',
-    'model:reference',
-    'model:period',
-    'model:claim-related',
-    'model:claim-payee',
-    'model:claim-care-team',
-    'model:claim-information',
-    'model:claim-diagnosis',
-    'model:claim-procedure',
-    'model:claim-insurance',
-    'model:claim-accident',
-    'model:claim-item',
-    'model:money',
-    'model:meta',
-    'model:narrative',
-    'model:resource',
-    'model:extension'
-  ]
-});
+import { run } from '@ember/runloop';
 
-test('it serializes records', function(assert) {
-  const record = this.subject(),
-    serializeRecord = record.serialize();
+module('Unit | Serializer | Claim', function(hooks) {
+  setupTest(hooks);
 
-  assert.ok(serializeRecord);
+  test('it serializes records', function(assert) {
+    const record = run(() => this.owner.lookup('service:store').createRecord('claim')),
+      serializeRecord = record.serialize();
+
+    assert.ok(serializeRecord);
+  });
 });

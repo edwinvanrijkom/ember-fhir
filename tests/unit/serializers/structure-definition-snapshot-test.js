@@ -1,19 +1,15 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('structure-definition-snapshot', 'Unit | Serializer | StructureDefinition_Snapshot', {
-  needs: [
-    'serializer:structure-definition-snapshot',
-    'model:element-definition',
-    'model:meta',
-    'model:narrative',
-    'model:resource',
-    'model:extension'
-  ]
-});
+import { run } from '@ember/runloop';
 
-test('it serializes records', function(assert) {
-  const record = this.subject(),
-    serializeRecord = record.serialize();
+module('Unit | Serializer | StructureDefinition_Snapshot', function(hooks) {
+  setupTest(hooks);
 
-  assert.ok(serializeRecord);
+  test('it serializes records', function(assert) {
+    const record = run(() => this.owner.lookup('service:store').createRecord('structure-definition-snapshot')),
+      serializeRecord = record.serialize();
+
+    assert.ok(serializeRecord);
+  });
 });

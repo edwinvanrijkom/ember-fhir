@@ -1,33 +1,15 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('plan-definition-action', 'Unit | Serializer | PlanDefinition_Action', {
-  needs: [
-    'serializer:plan-definition-action',
-    'model:codeable-concept',
-    'model:related-artifact',
-    'model:trigger-definition',
-    'model:plan-definition-condition',
-    'model:data-requirement',
-    'model:plan-definition-related-action',
-    'model:period',
-    'model:duration',
-    'model:range',
-    'model:timing',
-    'model:plan-definition-participant',
-    'model:coding',
-    'model:reference',
-    'model:plan-definition-dynamic-value',
-    'model:plan-definition-action',
-    'model:meta',
-    'model:narrative',
-    'model:resource',
-    'model:extension'
-  ]
-});
+import { run } from '@ember/runloop';
 
-test('it serializes records', function(assert) {
-  const record = this.subject(),
-    serializeRecord = record.serialize();
+module('Unit | Serializer | PlanDefinition_Action', function(hooks) {
+  setupTest(hooks);
 
-  assert.ok(serializeRecord);
+  test('it serializes records', function(assert) {
+    const record = run(() => this.owner.lookup('service:store').createRecord('plan-definition-action')),
+      serializeRecord = record.serialize();
+
+    assert.ok(serializeRecord);
+  });
 });

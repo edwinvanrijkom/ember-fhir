@@ -1,24 +1,15 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('message-header', 'Unit | Serializer | MessageHeader', {
-  needs: [
-    'serializer:message-header',
-    'model:coding',
-    'model:message-header-destination',
-    'model:reference',
-    'model:message-header-source',
-    'model:codeable-concept',
-    'model:message-header-response',
-    'model:meta',
-    'model:narrative',
-    'model:resource',
-    'model:extension'
-  ]
-});
+import { run } from '@ember/runloop';
 
-test('it serializes records', function(assert) {
-  const record = this.subject(),
-    serializeRecord = record.serialize();
+module('Unit | Serializer | MessageHeader', function(hooks) {
+  setupTest(hooks);
 
-  assert.ok(serializeRecord);
+  test('it serializes records', function(assert) {
+    const record = run(() => this.owner.lookup('service:store').createRecord('message-header')),
+      serializeRecord = record.serialize();
+
+    assert.ok(serializeRecord);
+  });
 });

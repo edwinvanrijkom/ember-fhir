@@ -1,32 +1,15 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('activity-definition', 'Unit | Serializer | ActivityDefinition', {
-  needs: [
-    'serializer:activity-definition',
-    'model:identifier',
-    'model:period',
-    'model:usage-context',
-    'model:codeable-concept',
-    'model:contributor',
-    'model:contact-detail',
-    'model:related-artifact',
-    'model:reference',
-    'model:timing',
-    'model:range',
-    'model:activity-definition-participant',
-    'model:quantity',
-    'model:dosage',
-    'model:activity-definition-dynamic-value',
-    'model:meta',
-    'model:narrative',
-    'model:resource',
-    'model:extension'
-  ]
-});
+import { run } from '@ember/runloop';
 
-test('it serializes records', function(assert) {
-  const record = this.subject(),
-    serializeRecord = record.serialize();
+module('Unit | Serializer | ActivityDefinition', function(hooks) {
+  setupTest(hooks);
 
-  assert.ok(serializeRecord);
+  test('it serializes records', function(assert) {
+    const record = run(() => this.owner.lookup('service:store').createRecord('activity-definition')),
+      serializeRecord = record.serialize();
+
+    assert.ok(serializeRecord);
+  });
 });

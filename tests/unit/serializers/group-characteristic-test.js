@@ -1,22 +1,15 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('group-characteristic', 'Unit | Serializer | Group_Characteristic', {
-  needs: [
-    'serializer:group-characteristic',
-    'model:codeable-concept',
-    'model:quantity',
-    'model:range',
-    'model:period',
-    'model:meta',
-    'model:narrative',
-    'model:resource',
-    'model:extension'
-  ]
-});
+import { run } from '@ember/runloop';
 
-test('it serializes records', function(assert) {
-  const record = this.subject(),
-    serializeRecord = record.serialize();
+module('Unit | Serializer | Group_Characteristic', function(hooks) {
+  setupTest(hooks);
 
-  assert.ok(serializeRecord);
+  test('it serializes records', function(assert) {
+    const record = run(() => this.owner.lookup('service:store').createRecord('group-characteristic')),
+      serializeRecord = record.serialize();
+
+    assert.ok(serializeRecord);
+  });
 });

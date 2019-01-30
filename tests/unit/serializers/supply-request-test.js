@@ -1,25 +1,15 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('supply-request', 'Unit | Serializer | SupplyRequest', {
-  needs: [
-    'serializer:supply-request',
-    'model:identifier',
-    'model:codeable-concept',
-    'model:supply-request-ordered-item',
-    'model:period',
-    'model:timing',
-    'model:supply-request-requester',
-    'model:reference',
-    'model:meta',
-    'model:narrative',
-    'model:resource',
-    'model:extension'
-  ]
-});
+import { run } from '@ember/runloop';
 
-test('it serializes records', function(assert) {
-  const record = this.subject(),
-    serializeRecord = record.serialize();
+module('Unit | Serializer | SupplyRequest', function(hooks) {
+  setupTest(hooks);
 
-  assert.ok(serializeRecord);
+  test('it serializes records', function(assert) {
+    const record = run(() => this.owner.lookup('service:store').createRecord('supply-request')),
+      serializeRecord = record.serialize();
+
+    assert.ok(serializeRecord);
+  });
 });

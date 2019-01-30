@@ -1,20 +1,13 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('questionnaire-response-answer', 'Unit | Model | QuestionnaireResponse_Answer', {
-  needs: [
-    'model:meta',
-    'model:narrative',
-    'model:resource',
-    'model:extension',
-    'model:attachment',
-    'model:coding',
-    'model:quantity',
-    'model:reference',
-    'model:questionnaire-response-item'
-  ]
-});
+import { run } from '@ember/runloop';
 
-test('it exists', function(assert) {
-  const model = this.subject();
-  assert.ok(!!model);
+module('Unit | Model | QuestionnaireResponse_Answer', function(hooks) {
+  setupTest(hooks);
+
+  test('it exists', function(assert) {
+    const model = run(() => this.owner.lookup('service:store').createRecord('questionnaire-response-answer'));
+    assert.ok(!!model);
+  });
 });

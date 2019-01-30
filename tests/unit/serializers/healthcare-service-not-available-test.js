@@ -1,19 +1,15 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('healthcare-service-not-available', 'Unit | Serializer | HealthcareService_NotAvailable', {
-  needs: [
-    'serializer:healthcare-service-not-available',
-    'model:period',
-    'model:meta',
-    'model:narrative',
-    'model:resource',
-    'model:extension'
-  ]
-});
+import { run } from '@ember/runloop';
 
-test('it serializes records', function(assert) {
-  const record = this.subject(),
-    serializeRecord = record.serialize();
+module('Unit | Serializer | HealthcareService_NotAvailable', function(hooks) {
+  setupTest(hooks);
 
-  assert.ok(serializeRecord);
+  test('it serializes records', function(assert) {
+    const record = run(() => this.owner.lookup('service:store').createRecord('healthcare-service-not-available')),
+      serializeRecord = record.serialize();
+
+    assert.ok(serializeRecord);
+  });
 });

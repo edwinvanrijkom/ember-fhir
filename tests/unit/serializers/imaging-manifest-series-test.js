@@ -1,20 +1,15 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('imaging-manifest-series', 'Unit | Serializer | ImagingManifest_Series', {
-  needs: [
-    'serializer:imaging-manifest-series',
-    'model:reference',
-    'model:imaging-manifest-instance',
-    'model:meta',
-    'model:narrative',
-    'model:resource',
-    'model:extension'
-  ]
-});
+import { run } from '@ember/runloop';
 
-test('it serializes records', function(assert) {
-  const record = this.subject(),
-    serializeRecord = record.serialize();
+module('Unit | Serializer | ImagingManifest_Series', function(hooks) {
+  setupTest(hooks);
 
-  assert.ok(serializeRecord);
+  test('it serializes records', function(assert) {
+    const record = run(() => this.owner.lookup('service:store').createRecord('imaging-manifest-series')),
+      serializeRecord = record.serialize();
+
+    assert.ok(serializeRecord);
+  });
 });

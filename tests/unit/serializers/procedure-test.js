@@ -1,25 +1,15 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('procedure', 'Unit | Serializer | Procedure', {
-  needs: [
-    'serializer:procedure',
-    'model:identifier',
-    'model:reference',
-    'model:codeable-concept',
-    'model:period',
-    'model:procedure-performer',
-    'model:annotation',
-    'model:procedure-focal-device',
-    'model:meta',
-    'model:narrative',
-    'model:resource',
-    'model:extension'
-  ]
-});
+import { run } from '@ember/runloop';
 
-test('it serializes records', function(assert) {
-  const record = this.subject(),
-    serializeRecord = record.serialize();
+module('Unit | Serializer | Procedure', function(hooks) {
+  setupTest(hooks);
 
-  assert.ok(serializeRecord);
+  test('it serializes records', function(assert) {
+    const record = run(() => this.owner.lookup('service:store').createRecord('procedure')),
+      serializeRecord = record.serialize();
+
+    assert.ok(serializeRecord);
+  });
 });

@@ -1,30 +1,15 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('encounter', 'Unit | Serializer | Encounter', {
-  needs: [
-    'serializer:encounter',
-    'model:identifier',
-    'model:encounter-status-history',
-    'model:coding',
-    'model:encounter-class-history',
-    'model:codeable-concept',
-    'model:reference',
-    'model:encounter-participant',
-    'model:period',
-    'model:duration',
-    'model:encounter-diagnosis',
-    'model:encounter-hospitalization',
-    'model:encounter-location',
-    'model:meta',
-    'model:narrative',
-    'model:resource',
-    'model:extension'
-  ]
-});
+import { run } from '@ember/runloop';
 
-test('it serializes records', function(assert) {
-  const record = this.subject(),
-    serializeRecord = record.serialize();
+module('Unit | Serializer | Encounter', function(hooks) {
+  setupTest(hooks);
 
-  assert.ok(serializeRecord);
+  test('it serializes records', function(assert) {
+    const record = run(() => this.owner.lookup('service:store').createRecord('encounter')),
+      serializeRecord = record.serialize();
+
+    assert.ok(serializeRecord);
+  });
 });

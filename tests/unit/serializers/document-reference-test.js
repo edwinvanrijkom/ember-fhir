@@ -1,24 +1,15 @@
-import { moduleForModel, test } from 'ember-qunit';
+import { module, test } from 'qunit';
+import { setupTest } from 'ember-qunit';
 
-moduleForModel('document-reference', 'Unit | Serializer | DocumentReference', {
-  needs: [
-    'serializer:document-reference',
-    'model:identifier',
-    'model:codeable-concept',
-    'model:reference',
-    'model:document-reference-relates-to',
-    'model:document-reference-content',
-    'model:document-reference-context',
-    'model:meta',
-    'model:narrative',
-    'model:resource',
-    'model:extension'
-  ]
-});
+import { run } from '@ember/runloop';
 
-test('it serializes records', function(assert) {
-  const record = this.subject(),
-    serializeRecord = record.serialize();
+module('Unit | Serializer | DocumentReference', function(hooks) {
+  setupTest(hooks);
 
-  assert.ok(serializeRecord);
+  test('it serializes records', function(assert) {
+    const record = run(() => this.owner.lookup('service:store').createRecord('document-reference')),
+      serializeRecord = record.serialize();
+
+    assert.ok(serializeRecord);
+  });
 });
