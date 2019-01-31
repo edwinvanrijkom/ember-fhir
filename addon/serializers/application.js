@@ -2,7 +2,7 @@ import { A } from '@ember/array';
 import { guidFor } from '@ember/object/internals';
 import { merge } from '@ember/polyfills';
 import { set, get } from '@ember/object';
-import { capitalize, camelize } from '@ember/string';
+import { capitalize, camelize, dasherize } from '@ember/string';
 import { typeOf, isPresent, isNone, isEmpty } from '@ember/utils';
 import DS from 'ember-data';
 import { pluralize } from 'ember-inflector';
@@ -20,6 +20,30 @@ function coerceId(id) {
     return id.toString();
   }
   return '' + id;
+}
+/**
+ * @param {Array} resources
+ * @returns {Object}
+ */
+function mapResourcesToRecordsHash(resources) {
+  let hash = {};
+  resources.forEach((resource) => {
+    // fix reserved names
+    reserved.forEach((property) => {
+      if (resource.hasOwnProperty(property)) {
+        resource[`${property}_`] = resource[property];
+        delete resource[property];
+      }
+    });
+
+    const type = pluralize(dasherize(resource.resourceType));
+    if (isEmpty(get(hash, type))) {
+      set(hash, type, A());
+    }
+
+    hash[type].push(resource);
+  });
+  return hash;
 }
 
 export default DS.RESTSerializer.extend(DS.EmbeddedRecordsMixin, {
@@ -50,7 +74,6 @@ export default DS.RESTSerializer.extend(DS.EmbeddedRecordsMixin, {
       };
 
     if (isEmpty(get(payload, 'entry'))) {
-
       // This is a query where nothing was returned.
       // Create an empty array in the hash so that subsequent parsing doesn't complain that there are 0 expected objects
       if (payload.total === 0) {
@@ -59,28 +82,11 @@ export default DS.RESTSerializer.extend(DS.EmbeddedRecordsMixin, {
       } else {
         resourceArray = [ payload ];
       }
-
-
     } else {
       resourceArray = get(payload, 'entry').mapBy('resource');
     }
 
-    resourceArray.forEach((resource) => {
-      // fix reserved names
-      reserved.forEach((property) => {
-        if (resource.hasOwnProperty(property)) {
-          resource[`${property}_`] = resource[property];
-          delete resource[property];
-        }
-      });
-
-      const type = get(resource, 'resourceType').dasherize().pluralize();
-      if (isEmpty(get(hash, type))) {
-        set(hash, type, A());
-      }
-
-      hash[type].push(resource);
-    });
+    Object.assign(hash, mapResourcesToRecordsHash(resourceArray));
 
     if (payload.link) {
       let meta = {};
@@ -111,6 +117,11 @@ export default DS.RESTSerializer.extend(DS.EmbeddedRecordsMixin, {
     });
 
     return documentHash;
+  },
+
+  pushPayload(store, payload) {
+    const transformedPayload = mapResourcesToRecordsHash([payload]);
+    return this._super(store, transformedPayload);
   },
 
   extractRelationship(relationshipModelName, relationshipHash) {
