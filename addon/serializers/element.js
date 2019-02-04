@@ -1,6 +1,6 @@
-import ApplicationSerializer from 'ember-fhir/serializers/application';
+import FhirSerializer from 'ember-fhir/serializers/-fhir';
 
-export default ApplicationSerializer.extend({
+export default FhirSerializer.extend({
   attrs: { extension: { embedded: 'always' }
   }
 });
